@@ -1,0 +1,36 @@
+#Model
+
+levels(test$Pclass) <- levels(train$Pclass)
+
+levels(test$Sex) <- levels(train$Sex)
+
+levels(test$Embarked) <- levels(train$Embarked)
+
+levels(test$Title)<-levels(train$Title)
+
+levels(test$CabinNum)<-levels(train$CabinNum)
+
+levels(test$Survived) <- levels(train$Survived)
+
+
+
+test<-titanic[titanic$IsTrainSet==FALSE,]
+
+train<-titanic[titanic$IsTrainSet==TRUE,]
+
+train$Survived<-as.factor(train$Survived)
+
+
+
+survived.eq<- "Survived~Pclass+Sex+Age+SibSp+Parch+Fare+Embarked+Title" 
+
+survived.for<-as.formula(survived.eq)
+
+modelforest<-randomForest(formula =survived.for, data=train,ntree = 500,mtry = 3,nodesize = 0.01*nrow(train))
+
+survivedfeatures<-"Pclass+Sex+Age+SibSp+Parch+Fare+Embarked+Title+Cabin"
+
+Survived<-predict(modelforest, newdata = test)
+
+
+
