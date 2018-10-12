@@ -1,0 +1,9 @@
+#Final
+
+PassengerId<-test$PassengerId
+
+output<-as.data.frame(PassengerId)
+
+output$Survived<-Survived
+
+write.csv(output,file = "Titanicpred2.csv",row.names = FALSE)
