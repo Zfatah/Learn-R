@@ -1,0 +1,62 @@
+#Missing Value Manipulation
+
+
+
+ 1. #Fare
+
+titanic[is.na(titanic$Fare),"Fare"]<-median(titanic$Fare,na.rm=TRUE)
+
+table(is.na(titanic$Fare))
+
+ 
+
+ 
+
+2.  #Embarked
+
+table(is.na(titanic$Embarked))
+
+titanic[is.na(titanic$Embarked),"Embarked"]<-median(titanic$Embarked,na.rm=TRUE)
+
+table(is.na(titanic$Embarked))
+
+
+
+  3. #Title
+
+titanic[is.na(titanic$Title),"Title"]<-"Mrs"
+
+
+
+  4. #Cabin
+
+titanic[is.na(titanic$Cabin),"Cabin"]<-0
+
+titanic$Cabinletter<-NULL
+
+table(is.na(titanic))
+
+titanic$CabinNum<-NULL
+
+
+
+  5. #Age
+
+upper<-boxplot.stats(titanic$Age)$stats[5]
+
+outlier<-titanic$Age<=upper
+
+equation= "Age~ Pclass+Sex+Fare+Parch+Embarked+SibSp"
+
+model<-lm(formula = equation,data = titanic[outlier,])
+
+features<-titanic[is.na(titanic$Age), c("Pclass","Sex","Fare","Parch","Embarked","SibSp")]
+
+prediction<-predict.lm(model,newdata = features)
+
+titanic[is.na(titanic$Age), "Age"]<-prediction
+
+table(is.na(titanic))
+
+
+
