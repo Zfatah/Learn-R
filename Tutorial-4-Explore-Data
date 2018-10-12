@@ -1,0 +1,28 @@
+
+
+#Change to Factor
+
+titanic$Pclass<-as.factor(titanic$Pclass)
+
+titanic$Sex<-as.factor(titanic$Sex)
+
+titanic$Embarked<-as.factor(titanic$Embarked)
+
+titanic$Title<-as.factor(titanic$Title)
+
+titanic$Cabin<-as.factor(titanic$Cabin)
+
+
+
+#EDA
+
+Pclass_graph<-ggplot(train, aes(x=Pclass, fill=Survived)) + geom_bar(stat = "count") + labs(title="Distribution of survivors respect to Class")
+
+Age_graph<-ggplot(train, aes(x=Age_Group, fill=Survived)) + geom_bar() + labs(title="Distribution of survivors respect to age")
+
+Sex_graph<-ggplot(train, aes(x=Sex, fill=Survived)) + geom_bar()  + labs(title="Distribution of survivors based on sex")
+
+corr<- titanic %>% select(-PassengerId, -SibSp, -Parch) %>% select_if(is.numeric) %>% cor(use = "complete.obs")%>% corrplot.mixed(tl.cex=0.85)
+
+
+
