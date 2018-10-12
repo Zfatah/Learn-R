@@ -1,0 +1,25 @@
+#Combining data
+
+train$IsTrainSet<-TRUE
+
+test$IsTrainSet<-FALSE
+
+test$Survived<-NA
+
+titanic<-rbind(train,test)
+
+
+
+#Understand Data
+
+str(titanic)
+
+dim(titanic)
+
+table(is.na(titanic))
+
+sapply(titanic, function(x) sum(is.na(x)))
+
+
+
+
